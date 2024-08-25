@@ -1,0 +1,87 @@
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<style>
+    body{
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+    #navbar{
+        background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+        float: left;
+        color: #d7d7d7;
+        min-width: 15%;
+        min-height: 100%;
+        margin: 0px;
+        text-align: left;
+    }
+    #userbar{
+        background-color: white; 
+        min-height: 7%; 
+        color: black; 
+        text-align: right; 
+        padding: 0.5%; 
+        padding-right: 2%;
+        padding-top: 2%;
+        border-bottom: 1px solid #d7d7d7;
+    }
+    #content{
+        padding: 2%;
+    }
+    a{
+        color: #d7d7d7;
+        border-radius: 4px;
+        height: 5rem;
+        align-items: center;
+        line-height: 5rem;
+        text-decoration: none;
+        display: flex;
+        justify-content: center;
+        font-size: 17;
+    }
+    a:hover{
+        background-color: rgba(255,255,255,0.1);
+        color: white;
+        text-decoration: none;
+    }
+    a:active{
+        background-color: rgba(255,255,255,0.25);
+        color: white;
+        text-decoration: none;
+    }
+</style>
+</head>
+<body>
+    <div>
+        <div id="navbar" style="margin: 0px;">
+            <div id="projectTitle" style="text-align: center; border-bottom: 3px solid #d7d7d7;">
+                <h1>Flask App</h1>
+            </div>
+        </div>
+        <div id="container" style="float: left; min-width: 85%; ">
+            <div id="userbar">
+                You are not logged in
+            </div>
+            <div id="content">
+                <h1>
+                    Wpisz dane logowania
+                </h1>
+                <form method=post action="/login">
+                    Login: <input type=text name=login>
+                    Password: <input type=password name=password>
+                    <input type=submit value="Sign in">
+                </form>
+                {% if AccNotExist == True %}
+                    <span style="color: red;">Your account does not exist!</span>
+                {% endif %}
+            </div>
+        </div>
+        <div id="footer" style="clear: both;">
+
+        </div>
+    </div>
+</body>
+</html>
