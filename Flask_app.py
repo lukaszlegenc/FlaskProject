@@ -1,4 +1,4 @@
-# Dołączanie modułu flask 
+# Adding Flask module
 
 from flask import Flask
 from flask import render_template, request, redirect, url_for, flash, session
@@ -15,7 +15,7 @@ import cv2
 import os
 
 
-# Tworzenie aplikacji
+# Creating an App
 app = Flask(__name__)
 
 UPLOAD_FOLDER = 'static/uploads'
@@ -26,25 +26,25 @@ PROJECT_PATH = os.getcwd()
 
 MODEL_PATH = os.getcwd() + '\model'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-# Tworzenie obsługi sesji
+# Creating session
 sess = Session()
 
-# Ścieżka do pliku bazy danych w sqlite
+# DB path 
 DATABASE = os.getcwd() + '\DB\database.db'
 
 @app.route('/create_database', methods=['GET', 'POST'])
 def create_db():
-    # Połączenie sie z bazą danych
+    # Connecting with DB
     conn = sqlite3.connect(DATABASE)
     cur = conn.cursor()
-    # Stworzenie tabeli w bazie danych za pomocą sqlite3
+    # Creating DB tables using sqlite3
     cur.execute('CREATE TABLE users (user_id INTEGER PRIMARY KEY, username TEXT, password TEXT, admin INTEGER)')
     cur.execute('CREATE TABLE stats (stat_id INTEGER PRIMARY KEY, author TEXT, fileName TEXT, animal TEXT, prediction TEXT, date timestamp)')
     cur.execute("INSERT INTO users (username,password,admin) VALUES (?,?,?)",("admin","admin",1))
     conn.commit()
-    # Zakończenie połączenia z bazą danych
+    # Closing connection with DB
     conn.close()
-    return "Dodano użytkownika do bazy danych <br>"
+    return "Admin was inserted to DB <br>"
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -75,7 +75,7 @@ def show_image():
 
 @app.route('/login', methods=['POST'])
 def login():
-    # Pobranie danych z przesłanego formularza metodą POST i konwersja ich do słownika
+    # Collecting data from the submitted form using the POST method and convert it to a dict
     req_form = request.form.to_dict()
     login = request.form['login']
     password = request.form['password']
@@ -93,12 +93,12 @@ def login():
 
 @app.route('/logout', methods=['GET'])
 def logout():
-    # Jeżeli sesja klienta istnieje - usunięcie sesji 
+    # If user session exists - deleting session
     if 'user' in session:
         session.pop('user')
         return render_template("logout.html")
     else:
-        # Przekierowanie klienta do strony początkowej
+        # Redirecting user to frontpage
         return redirect(url_for('login'))
 
 @app.route('/users', methods=['GET','POST'])
@@ -132,7 +132,7 @@ def addUser():
     password = request.form['password']
     isAdmin = request.form.get("admin")
 
-    #dodanie uzytkowanika do bazy
+    # Adding user to DB
     con = sqlite3.connect(DATABASE)
     cur = con.cursor()
     cur.execute("INSERT INTO users (username,password,admin) VALUES (?,?,?)",(login,password, 0 if isAdmin is None else 1))
@@ -191,7 +191,7 @@ def predict():
 
     return render_template('predict.html', predict = prediction, img = img_path, username = session['user'].get('login'))
 
-# Uruchomienie aplikacji w trybie debug
+# Running the application in debug mode
 app.secret_key = 'super secret key'
 app.config['SESSION_TYPE'] = 'filesystem'
 sess.init_app(app)
