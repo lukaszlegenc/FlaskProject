@@ -16,9 +16,12 @@
             <td>{{user[1]}}</td>
             <td>{{user[2]}}</td>
             <td>{{user[3]}}</td>
+            {% if user[1] != username %}
+                <td><form method="post" action="/deleteUser/{{user[0]}}"><input class="btn btn-danger" type="submit" value="Delete" name="DeleteUserButton"></form></td>
+            {% endif %}
             </tr>
         {% endfor %}
-        </table>
+    </table>
 
     <h1>
         Add user

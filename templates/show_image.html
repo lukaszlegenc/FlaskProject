@@ -3,7 +3,7 @@
 {% block content %}
     <h1>Upload and display image</h1>
     <form method="POST" enctype="multipart/form-data" action="/show_image">
-        <input type="file" id="File" name="file" accept="*" class="form-control" autocomplete="off">
+        <input type="file" id="File" name="file" accept=".jpg,.jpeg,.png" class="form-control" autocomplete="off">
         <br><input type="submit" class="btn btn-primary" value="submit">
     </form>
     <p>Your image was successfully uploaded and displayed below</p>
